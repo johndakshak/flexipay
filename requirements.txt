@@ -1,2 +1,9 @@
 fastapi
 uvicorn
+alembic
+sqlalchemy
+pymysql
+cryptography
+pydantic[email]
+pydantic
+bcrypt

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  flexipay.api:
+    container_name: flexipay.api
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT}
+    volumes:
+      - .:/app
+    depends_on:
+      - flexipay_db
+        # condition: service_healthy
+    restart: unless-stopped
+  
+  flexipay_db:
+    image: mysql:8.0
+    container_name: flexipay_db
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+    #   start_period: 30s
+    volumes:
+      - flexipay_db_data:/var/lib/mysql
+    restart: unless-stopped
+volumes:
+  flexipay_db_data:

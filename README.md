@@ -28,6 +28,7 @@ FlexiPay helps young, everyday Nigerians save smarter and manage money effortles
 - **ORM:** SQLAlchemy
 - **Authentication:** JWT (JSON Web Tokens)
 - **Containerization:** Docker & Docker Compose
+- **Fileupload:** Cloudinary
 - **Payments:** 
 
 
