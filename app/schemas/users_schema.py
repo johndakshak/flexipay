@@ -136,47 +136,6 @@ class UserUpdate(BaseModel):
             raise ValueError("Phone number must be exactly 11 digits")
 
         return value
-
-    
-    @field_validator("password")
-    def validate_password(cls, v):
-        v = v.strip()  
-        if not v:
-            raise ValueError('Password cannot be empty!')
-    
-        if len(v) < 6:
-            raise ValueError("Password must be at least 6 characters long")
-
-        has_lower = False
-        has_upper = False
-        has_digit = False
-        has_special = False
-
-        specials = "@$!%*#?&"
-
-        for passwd in v:
-            if passwd.islower():
-                has_lower = True
-            elif passwd.isupper():
-                has_upper = True
-            elif passwd.isdigit():
-                has_digit = True
-            elif passwd in specials:
-                has_special = True
-
-        if not has_lower:
-            raise ValueError("Password must contain a lowercase letter")
-
-        if not has_upper:
-            raise ValueError("Password must contain an uppercase letter")
-
-        if not has_digit:
-            raise ValueError("Password must contain a number")
-
-        if not has_special:
-            raise ValueError("Password must contain a special character (@$!%*#?&)")
-
-        return v
     
     @field_validator('location')
     def validate_location(cls, v):
